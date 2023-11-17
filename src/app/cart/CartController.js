@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 export const getCarts = async (req, res) => {
   try {
     const response = await prisma.cart.findMany({
+      where: { userId: req.user.id },
       include: {
         item: true,
         user: true,
@@ -31,6 +32,8 @@ export const createCarts = async (req, res) => {
       include: {
         item: true,
         user: true,
+        quantity: true,
+        totalprice: true,
       },
     });
 
